@@ -1,0 +1,26 @@
+Clear
+
+New Circuit.AusOverhead_nr_linegeometry_balanced phases=3 basekv=0.4 bus1=B1 MVASC1=1e8 MVASC3=1e8
+
+New Wiredata.Pluto DIAM=18.8 RAC=0.168
+~ NormAmps=400
+~ Runits=km radunits=mm
+
+New Linegeometry.OverHead1 nconds=4 nphases=3
+~ cond=1 Wire=Pluto   x=-110  h=580  units=cm
+~ cond=2 Wire=Pluto   x=-45   h=580  units=cm
+~ cond=3 Wire=Pluto   x=45    h=580  units=cm
+~ cond=4 Wire=Pluto   x=110   h=580  units=cm
+
+New Line.Line1 bus1=B1.1.2.3.0 bus2=B2.1.2.3.4
+~ Geometry=OverHead1
+~ Length=0.2 units=km
+~ EarthModel=Carson
+
+New Reactor.grounding phases=1 bus1=B1.4 bus2=B1.0 R=100 X=0.01
+
+New Load.LoadP1  phases=1 bus1=B2.1.4  kv=0.23  model=1 conn=wye kVA=30  pf=0.9 vminpu=0.1 vmaxpu=2
+New Load.LoadP2  phases=1 bus1=B2.2.4  kv=0.23  model=1 conn=wye kVA=30  pf=0.9 vminpu=0.1 vmaxpu=2
+New Load.LoadP3  phases=1 bus1=B2.3.4  kv=0.23  model=1 conn=wye kVA=30  pf=0.9 vminpu=0.1 vmaxpu=2
+
+Solve
