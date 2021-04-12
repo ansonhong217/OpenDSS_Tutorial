@@ -1,0 +1,36 @@
+Clear
+
+New Circuit.AusOverhead_nr_linegeometry_unbalanced phases=3 basekv=0.4 bus1=B1 MVASC1=1e8 MVASC3=1e8
+
+New Wiredata.Pluto DIAM=18.8 RAC=0.168
+~ NormAmps=400
+~ Runits=km radunits=mm
+
+New Linegeometry.OverHead1 nconds=4 nphases=3
+~ cond=1 Wire=Pluto   x=-110  h=580  units=cm
+~ cond=2 Wire=Pluto   x=-45   h=580  units=cm
+~ cond=3 Wire=Pluto   x=45    h=580  units=cm
+~ cond=4 Wire=Pluto   x=110   h=580  units=cm
+
+New Line.Line1 bus1=B1.1.2.3.0 bus2=B2.1.2.3.4
+~ Geometry=OverHead1
+~ Length=0.2 units=km
+~ EarthModel=Carson
+
+New Reactor.grounding phases=1 bus1=B1.4 bus2=B1.0 R=100 X=0.01
+
+!define load profile of a day
+New Loadshape.loadProfile npts=48 interval=0.5
+~ mult=[0.96 1.09 1.07 0.86 0.78 0.66 0.6 0.57 0.57 0.56 0.57 0.61 0.67 0.75 0.77 0.8 0.8 0.82 0.81 0.82 0.83 0.85 0.87 0.9 0.92 0.93 0.94 0.94 0.94 0.96 0.98 1.01 1.03 1.09 1.17 1.25 1.28 1.28 1.24 1.22 1.24 1.23 1.17 1.09 1.08 1.06 1.07 0.97]
+
+New Load.LoadP1  phases=1 bus1=B2.1.4  kv=0.23  model=1 conn=wye kVA=40  pf=0.9 daily=loadProfile vminpu=0.1 vmaxpu=2
+New Load.LoadP2  phases=1 bus1=B2.2.4  kv=0.23  model=1 conn=wye kVA=30  pf=0.9 daily=loadProfile vminpu=0.1 vmaxpu=2
+New Load.LoadP3  phases=1 bus1=B2.3.4  kv=0.23  model=1 conn=wye kVA=20  pf=0.9 daily=loadProfile vminpu=0.1 vmaxpu=2
+
+!monitor
+New monitor.m1 element=load.loadP1 terminal=1 mode=0 
+New monitor.m2 element=load.loadP2 terminal=1 mode=0
+New monitor.m3 element=load.loadP3 terminal=1 mode=0
+
+Calcvoltagebases
+Solve mode=daily stepsize=0.5h number=48 
