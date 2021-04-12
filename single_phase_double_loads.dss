@@ -1,0 +1,15 @@
+//simple 1 Voltage source two loads circuit
+Clear
+
+!Define name of new circuit and voltage source
+New circuit.single_phase_double_loads
+~ bus1=SourceBus phases=1 basekV=3.3 pu=1 
+
+!Line (R=resistance, X=reactance, C=capacitance, 1 and 0 correspond to positve and zero sequence respectively)
+New line.V-Load phases=1 bus1=SourceBus bus2=LoadBus unit=km length=1 R1=10 X1=0 c1=0 
+
+!Loads  (negative power factor pf=leading)
+New load.load1 bus1=LoadBus phases=1 kVA=30 pf=-0.5 kV=3.3 
+New load.load2 bus1=LoadBus phases=1 kW=15 pf=0.707 kV=3.3
+
+Solve
