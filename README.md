@@ -1,4 +1,6 @@
 # OpenDSS_Tutorial
+The following links provide a guide for beginner to use OpenDSS, a fast power flow simulation software. <br />
+Tutorials are built using very simple circuit example. <br />
 
 Tutorial 1: Building simple circuit: signle phase double loads
 https://nbviewer.jupyter.org/github/ansonhong217/OpenDSS_Tutorial/blob/17313e551908df05908eed6ca5e79feaff8d2a8f/Tutorial_1%23simple_circuit.ipynb
